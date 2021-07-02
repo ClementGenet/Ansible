@@ -1,0 +1,33 @@
+# tasks file for common
+
+- name: Update cache apt repo
+  become: true
+  apt: update_cache=yes cache_valid_time=3600
+
+- name: Upgrade packages
+  become: true
+  apt: upgrade=safe
+
+- name: Install common packages
+  become: true
+  apt:
+    pkg:
+      - git
+      - htop
+      - curl
+      - unzip
+      - iotop
+      - iftop
+      - sudo
+      - screen
+      - tree
+      - net-tools
+      - bash-completion
+      - fail2ban
+      - iptables-persistent
+      - gnupg
+      - openssh-server
+      - conntrack
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600

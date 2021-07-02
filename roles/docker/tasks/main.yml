@@ -1,0 +1,53 @@
+- name: Install prerequis packages
+  become: true
+  apt:
+    pkg:
+      - libseccomp2
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg-agent
+      - software-properties-common
+    state: present
+    update_cache: yes
+
+- name: ajouter une clé GPG
+  become: true
+  apt_key:
+    url: https://download.docker.com/linux/debian/gpg
+    state: present
+
+- name: ajouter un référentiel docker
+  become: true
+  apt_repository:
+    repo: deb https://download.docker.com/linux/debian buster stable
+    state: present
+
+- name: Update cache apt repo
+  become: true
+  apt: update_cache=yes  
+
+- name: Upgrade packages
+  become: true
+  apt: upgrade=safe
+
+- name: installer docker
+  become: true
+  apt:
+    pkg:
+      - docker-ce
+    state: present
+    update_cache: yes
+
+- name: assurez-vous que le docker est actif
+  become: true
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: restart docker
+  become: true
+  service: 
+    name: docker 
+    state: restarted
