@@ -1,0 +1,8 @@
+---
+
+- name: "Playbook déploiement main"
+  hosts: infra
+
+  roles:
+    - role: common
+

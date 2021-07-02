@@ -1,0 +1,7 @@
+---
+
+- name: "Playbook déploiement gitlab"
+  hosts: infra
+
+  roles:
+    - role: gitlab
